@@ -1,4 +1,20 @@
-Table,Measure,Business Logic,Description
-Sales,Total Revenue,sum(Sales[Amount]),Total gross sales before tax.
-Sales,Net Profit,[Total Revenue] - [Total Cost],Actual earnings after expenses.
-Time,YTD Sales,TOTALYTD([Total Revenue], 'Date'[Date]),Sales from Jan 1 to current date.
+WorkspaceId,DatasetId,DatasetName,ObjectType,ObjectName,Description
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Total Profit,Calculated Total Profit from Sales table
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Total Sales,Calculated Total Sales from Sales table
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Profit Ratio,Calculated Profit Ratio from Sales table
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Discount Avg,Calculated Discount Avg from Sales table
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Quantity Sold,Calculated Quantity Sold from Sales table
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,COVID Cases,Global COVID Cases
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Confirmed Cases,Global Confirmed Cases
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Total Deaths,Global Total Deaths
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Recovered Cases,Global Recovered Cases
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Active Cases,Global Active Cases
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,CPI,Project Performance CPI
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,SPI,Project Performance SPI
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Budget Variance,Project Performance Budget Variance
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Planned Value,Project Performance Planned Value
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Earned Value,Project Performance Earned Value
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Total Listings,Marketplace Total Listings
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Average Price,Marketplace Average Price
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Sold Items,Marketplace Sold Items
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Active Auctions,Marketplace Active Auctions
