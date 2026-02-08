@@ -1,20 +1,1291 @@
-WorkspaceId,DatasetId,DatasetName,ObjectType,ObjectName,DAX Formula,Description
-c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Total Profit,SUM('Sales'[Profit]),Calculated Total Profit from Sales table
-c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Total Sales,SUM('Sales'[Sales]),Calculated Total Sales from Sales table
-c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Profit Ratio,"DIVIDE([Total Profit], [Total Sales])",Calculated Profit Ratio from Sales table
-c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Discount Avg,AVERAGE('Sales'[Discount]),Calculated Discount Avg from Sales table
-c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Quantity Sold,SUM('Sales'[Quantity]),Calculated Quantity Sold from Sales table
-effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,COVID Cases,SUM('Covid Data'[Cases]),Global COVID Cases
-effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Confirmed Cases,SUM('Covid Data'[Confirmed]),Global Confirmed Cases
-effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Total Deaths,SUM('Covid Data'[Deaths]),Global Total Deaths
-effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Recovered Cases,SUM('Covid Data'[Recovered]),Global Recovered Cases
-effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Active Cases,SUM('Covid Data'[Active]),Global Active Cases
-effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,CPI,"DIVIDE([Earned Value], [Actual Cost])",Project Performance CPI
-effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,SPI,"DIVIDE([Earned Value], [Planned Value])",Project Performance SPI
-effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Budget Variance,[Budget] - [Actual Cost],Project Performance Budget Variance
-effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Planned Value,SUM('Tasks'[Planned Value]),Project Performance Planned Value
-effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Earned Value,SUM('Tasks'[Earned Value]),Project Performance Earned Value
-effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Total Listings,COUNTROWS('Listings'),Marketplace Total Listings
-effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Average Price,AVERAGE('Listings'[Price]),Marketplace Average Price
-effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Sold Items,"CALCULATE(COUNTROWS('Listings'), 'Listings'[Status]=""Sold"")",Marketplace Sold Items
-effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Active Auctions,"CALCULATE(COUNTROWS('Listings'), 'Listings'[Type]=""Auction"", 'Listings'[Status]=""Active"")",Marketplace Active Auctions
+WorkspaceId,DatasetId,DatasetName,ObjectType,ObjectName,Description,DAX Formula,TableName,IsHidden
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,_EarliestDate_1stVacc,Measure from table 'CVIP_POPSTATUS2',"CALCULATE(
+MIN(CVIP_POPSTATUS2[FIRST_VACC_ACTIVITY_DATE])
+)",CVIP_POPSTATUS2,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,_LatestDate_Vacc,Measure from table 'CVIP_POPSTATUS2',"CALCULATE(
+MAX(CVIP_POPSTATUS2[LAST_VACC_ACTIVITY_DATE])
+)",CVIP_POPSTATUS2,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNT(CVIP_POPSTATUS2[OBS_NHI])
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI distinct,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        DISTINCTCOUNT(CVIP_POPSTATUS2[OBS_NHI]) //count unique values
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#Countrows,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNTROWS(CVIP_POPSTATUS2)           //count number of rows of the table
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Event 1stVacc,Measure from table '01 Measure',"CALCULATE(COUNT(CVIP_POPSTATUS2[OBS_NHI]),
+	USERELATIONSHIP(CVIP_POPSTATUS2[FIRST_VACC_ACTIVITY_DATE],
+		xd_Calendar[Calendar]
+		)
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Event FullVacc,Measure from table '01 Measure',"CALCULATE(COUNT(CVIP_POPSTATUS2[OBS_NHI]),
+	USERELATIONSHIP(CVIP_POPSTATUS2[FULLY_VACCINATED_ACTIVITY_DATE],
+		xd_Calendar[Calendar]
+		)
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Event Elig2ndVacc,Measure from table '01 Measure',"CALCULATE(COUNT(CVIP_POPSTATUS2[OBS_NHI]),
+	USERELATIONSHIP(CVIP_POPSTATUS2[ELIGIBLE_FOR_DOSE2_DATE],
+		xd_Calendar[Calendar]
+		)
+)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Event LastVacc,Measure from table '01 Measure',"CALCULATE(COUNT(CVIP_POPSTATUS2[OBS_NHI]),
+	USERELATIONSHIP(CVIP_POPSTATUS2[LAST_VACC_ACTIVITY_DATE],
+		xd_Calendar[Calendar]
+		)
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Event VaccBooster,Measure from table '01 Measure',"CALCULATE(COUNT(CVIP_POPSTATUS2[OBS_NHI]),
+	USERELATIONSHIP(CVIP_POPSTATUS2[LATEST_ADDITIONAL_BOOSTER_DATE],
+		xd_Calendar[Calendar]
+		)
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Event FullVacc and Booster,Measure from table '01 Measure',[#NHI Event FullVacc] + [#NHI Event VaccBooster],01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Fully Vaccinated,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#NHI]
+        ,FILTER(
+            ALL(VACC_STATUS[VACCINATION_STATUS]),
+                VACC_STATUS[VACCINATION_STATUS]= ""Fully Vaccinated""
+                )
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Partially Vaccinated,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#NHI]
+        ,FILTER(
+            ALL(VACC_STATUS[VACCINATION_STATUS]),
+                VACC_STATUS[VACCINATION_STATUS]= ""Partially Vaccinated""
+                )
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI Unvaccinated,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#NHI]
+        ,FILTER(
+            ALL(VACC_STATUS[VACCINATION_STATUS]),
+                VACC_STATUS[VACCINATION_STATUS]= ""Unvaccinated""
+                )
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum #NHI Full Vacc,Measure from table '01 Measure',"//Cummulative Count of NHI Fully Vaccinated
+CALCULATE([#NHI Fully Vaccinated]
+    ,FILTER(
+        ALL(CVIP_POPSTATUS2),
+        CVIP_POPSTATUS2[FULLY_VACCINATED_ACTIVITY_DATE] <= MAX(CVIP_POPSTATUS2[FULLY_VACCINATED_ACTIVITY_DATE])
+    )
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum #NHI Part Vacc,Measure from table '01 Measure',"//Cummulative Count of NHI Partially Vaccinated
+CALCULATE([#NHI Partially Vaccinated]
+    ,FILTER(
+        ALL(CVIP_POPSTATUS2),
+        CVIP_POPSTATUS2[FIRST_VACC_ACTIVITY_DATE] <= MAX(CVIP_POPSTATUS2[FIRST_VACC_ACTIVITY_DATE])
+    )
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,x Cum #NHI Reset by Status Full and Partial Vacc,Measure from table '01 Measure',"//Cummulative Count of NHI Reset by Fully and Partial Vaccinated
+CALCULATE([#NHI Fully Vaccinated]
+    ,FILTER(
+        ALL(CVIP_POPSTATUS2),
+        CVIP_POPSTATUS2[VACCINATION_STATUS_SK] = MAX(CVIP_POPSTATUS2[VACCINATION_STATUS_SK])
+	&& CVIP_POPSTATUS2[FULLY_VACCINATED_ACTIVITY_DATE] <= MAX(CVIP_POPSTATUS2[FULLY_VACCINATED_ACTIVITY_DATE])
+    )
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum #NHI UnVacc,Measure from table '01 Measure',"//Cummulative Count of NHI UnVaccinated
+[TotalNHI] - [Cum #NHI Full Vacc] - [Cum #NHI Part Vacc]",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,TotalNHI,Measure from table '01 Measure',[x#NHI_Copy],01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct NHI UnVacc,Measure from table '01 Measure',"IFERROR( 
+CALCULATE(
+	[Cum #NHI UnVacc]
+	/
+	[TotalNHI]
+
+)
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct NHI Part Vacc,Measure from table '01 Measure',"IFERROR( 
+CALCULATE(
+	[Cum #NHI Part Vacc]
+	/
+	[TotalNHI]
+
+)
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct NHI Full Vacc,Measure from table '01 Measure',"IFERROR( 
+CALCULATE(
+	[Cum #NHI Full Vacc]
+	/
+	[TotalNHI]
+
+)
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,x#Countrows_Copy,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNTROWS(CVIP_POPSTATUS2_COPY1)           //count number of rows of the table
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank)",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,x#NHI_Copy,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNT(CVIP_POPSTATUS2_COPY1[OBS_NHI])
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,x#NHI distinct Copy,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        DISTINCTCOUNT(CVIP_POPSTATUS2_COPY1[OBS_NHI]) //count unique values
+
+        )
+
+, 0) + 0                                    //add a zero to result, usually helpful if result is blank",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_DOB,Measure from table '02 Measure',"CALCULATE(
+        DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+
+        )",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_PartVacc,Measure from table '02 Measure',"CALCULATE([#NHI_DOB],
+	//USERELATIONSHIP(f_AllVacc_PQ[FIRST_VACC_ACTIVITY_DATE],
+    USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_VaccinationStatus_Flag]),
+        f_AllVacc_PQ[_VaccinationStatus_Flag] = ""Partially Vaccinated"")
+        
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_FullVacc,Measure from table '02 Measure',"CALCULATE([#NHI_DOB],
+	//USERELATIONSHIP(f_AllVacc_PQ[FULLY_VACCINATED_ACTIVITY_DATE],
+    USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_VaccinationStatus_Flag]),
+        f_AllVacc_PQ[_VaccinationStatus_Flag] = ""Fully Vaccinated"")
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_UnVacc,Measure from table '02 Measure',"CALCULATE([#NHI_DOB],
+	USERELATIONSHIP(f_AllVacc_PQ[_DWH_EFFECTIVE_FROM_DATE],
+		d_Calendar[Calendar]
+		)
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_VaccinationStatus_Flag]),
+        f_AllVacc_PQ[_VaccinationStatus_Flag] = ""Unvaccinated"")
+	)
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_1doseVacc,Measure from table '02 Measure',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[_NHI_DOB_1stVACC])
+        ,FILTER(
+        ALL(d_VaccStatus[VACC_STATUS_SK]),
+        d_VaccStatus[VACC_STATUS_SK] IN{1001, 1003})            //Use code instead of ""Partially Vaccinated"" and ""Fully Vaccinated"", which both received teh 1st dose
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[FIRST_VACC_ACTIVITY_DATE],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_2doseVacc,Measure from table '02 Measure',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[_NHI_DOB_2ndVACC])
+        ,FILTER(
+        ALL(d_VaccStatus[VACC_STATUS_SK]),
+        d_VaccStatus[VACC_STATUS_SK] IN{1001})            //Use code instead of ""Fully Vaccinated""
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[FULLY_VACCINATED_ACTIVITY_DATE],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,#NHI_3doseVacc,Measure from table '02 Measure',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[_NHI_DOB_3rdVACC])
+        ,FILTER(
+        ALL(d_VaccStatus[VACC_STATUS_SK]),
+        d_VaccStatus[VACC_STATUS_SK] IN{1001})            //Use code instead of ""Fully Vaccinated""; all who had 1st booster are already fully vaccinated (received 2 doses prior to booseter)
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[FIRST_BOOSTER_ACTIVITY_DATE],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))));",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,_#NHI,Measure from table 'f_AllVacc_DAX',"CALCULATE(
+    COUNT(f_AllVacc_DAX[NHI])
+)",f_AllVacc_DAX,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Text01_AsOfMonthEnding,Measure from table 'd_Calendar',"""As of "" & FORMAT(MAX(d_Calendar[Month End Date]), ""Mmmm yyyy"")",d_Calendar,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_DOB,Measure from table '03 Measure_byEvent',"CALCULATE(
+        DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+
+        )",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_1doseVacc,Measure from table '03 Measure_byEvent',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_TableDesc]),
+        f_AllVacc_PQ[_TableDesc] IN{""1st Vaccine""})           //All NHI with FIRST_VACC_ACTIVITY_DATE
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_2doseVacc,Measure from table '03 Measure_byEvent',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_TableDesc]),
+        f_AllVacc_PQ[_TableDesc] IN{""2nd Vaccine""})           //All NHI with FULL_VACCINATED_ACTIVITY_DATE
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_3doseVacc,Measure from table '03 Measure_byEvent',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_TableDesc]),
+        f_AllVacc_PQ[_TableDesc] IN{""3rd Vaccine or 1st Booster""})           //All NHI with FIRST_BOOSTER_ACTIVITY_DATE
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_4doseVacc,Measure from table '03 Measure_byEvent',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_TableDesc]),
+        f_AllVacc_PQ[_TableDesc] IN{""4th Vaccine or 2nd Booster""})           //All NHI with LATEST_ADDITIONAL_BOOSTER_DATE
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_PartVacc,Measure from table '03 Measure_byEvent',[Cnt_NHI_1doseVacc],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_FullVacc,Measure from table '03 Measure_byEvent',[Cnt_NHI_2doseVacc],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_0doseVacc,Measure from table '03 Measure_byEvent',"var _count1 = 
+CALCULATE(DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB])
+        ,FILTER(
+        ALL(f_AllVacc_PQ[_TableDesc]),
+        f_AllVacc_PQ[_TableDesc] IN{""0 Vaccine""})           //All NHI with FIRST_VACC_ACTIVITY_DATE
+)
+
+var _count2 = 
+CALCULATE(_count1,
+	USERELATIONSHIP(f_AllVacc_PQ[_Date2],
+		d_Calendar[Calendar]
+		)
+)
+
+
+return _count2 
+
+//Reference 1: https://learn.microsoft.com/en-us/dax/userelationship-function-dax
+//Reference 2: https://community.fabric.microsoft.com/t5/Desktop/multiple-dates-on-axis/td-p/2484359/page/2))))",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_UnVacc,Measure from table '03 Measure_byEvent',[Cnt_NHI_Total]- [Cnt_NHI_PartVacc],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_PartVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI Partially Vaccinated
+CALCULATE([Cnt_NHI_PartVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_FullVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI Partially Vaccinated
+CALCULATE([Cnt_NHI_FullVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_UnVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI Partially Vaccinated
+CALCULATE([Cnt_NHI_UnVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_1doseVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI with 1 dose
+CALCULATE([Cnt_NHI_1doseVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_2doseVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI with 1 dose
+CALCULATE([Cnt_NHI_2doseVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_3doseVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI with 1 dose
+CALCULATE([Cnt_NHI_3doseVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cum_Cnt_NHI_4doseVacc,Measure from table '03 Measure_byEvent',"//Cummulative Count of NHI with 1 dose
+CALCULATE([Cnt_NHI_4doseVacc]
+    ,FILTER(
+        ALL(f_AllVacc_PQ),
+        f_AllVacc_PQ[_Date2] <= MAX(f_AllVacc_PQ[_Date2])
+    )
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cum_Cnt_NHI_1doseVacc,Measure from table '03 Measure_byEvent',[Cum_Cnt_NHI_1doseVacc]/[Cnt_NHI_Total],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cum_Cnt_NHI_2doseVacc,Measure from table '03 Measure_byEvent',[Cum_Cnt_NHI_2doseVacc]/[Cnt_NHI_Total],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_Total,Measure from table '03 Measure_byEvent',100000,03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cum_Cnt_NHI_3doseVacc,Measure from table '03 Measure_byEvent',[Cum_Cnt_NHI_3doseVacc]/[Cnt_NHI_Total],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cum_Cnt_NHI_4doseVacc,Measure from table '03 Measure_byEvent',[Cum_Cnt_NHI_4doseVacc]/[Cnt_NHI_Total],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cum_Cnt_NHI_0doseVacc,Measure from table '03 Measure_byEvent',[Cum_Cnt_NHI_UnVacc]/[Cnt_NHI_Total],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_Pct100,Measure from table '03 Measure_byEvent',1,03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Rank of PartVacc Category by TA,Measure from table '03 Measure_byEvent',"RANKX(
+    ALLSELECTED('TA_Coordinates'[Territorial Authority]),
+    [Cnt_NHI_PartVacc] + COUNT('TA_Coordinates'[ID])/10000   //divide with big denominator to make it small difference in case of equal Sum Usage Quantity      
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Rank of FullVacc Category by TA,Measure from table '03 Measure_byEvent',"RANKX(
+    ALLSELECTED('TA_Coordinates'[Territorial Authority]),
+    [Cnt_NHI_FullVacc] + COUNT('TA_Coordinates'[ID])/10000   //divide with big denominator to make it small difference in case of equal Sum Usage Quantity      
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Rank of UnVacc Category by TA,Measure from table '03 Measure_byEvent',"RANKX(
+    ALLSELECTED('TA_Coordinates'[Territorial Authority]),
+    [Cnt_NHI_0doseVacc] + COUNT('TA_Coordinates'[ID])/10000   //divide with big denominator to make it small difference in case of equal Sum Usage Quantity      
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cnt_NHI_0doseVacc,Measure from table '03 Measure_byEvent',[Cnt_NHI_0doseVacc]/[Cnt_NHI_DOB],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cnt_NHI_PartVacc,Measure from table '03 Measure_byEvent',[Cnt_NHI_PartVacc]/[Cnt_NHI_DOB],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Pct_Cnt_NHI_FullVacc,Measure from table '03 Measure_byEvent',[Cnt_NHI_FullVacc]/[Cnt_NHI_DOB],03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Rank of Pct_FullVacc Category by TA,Measure from table '03 Measure_byEvent',"RANKX(
+    ALLSELECTED('TA_Coordinates'[Territorial Authority]),
+    [Pct_Cnt_NHI_FullVacc] + COUNT('TA_Coordinates'[ID])/10000   //divide with big denominator to make it small difference in case of equal Sum Usage Quantity      
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Rank of Pct_PartVacc Category by TA,Measure from table '03 Measure_byEvent',"RANKX(
+    ALLSELECTED('TA_Coordinates'[Territorial Authority]),
+    [Pct_Cnt_NHI_PartVacc] + COUNT('TA_Coordinates'[ID])/10000   //divide with big denominator to make it small difference in case of equal Sum Usage Quantity      
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Rank of Pct_0doseVacc Category by TA,Measure from table '03 Measure_byEvent',"RANKX(
+    ALLSELECTED('TA_Coordinates'[Territorial Authority]),
+    [Pct_Cnt_NHI_0doseVacc] + COUNT('TA_Coordinates'[ID])/10000   //divide with big denominator to make it small difference in case of equal Sum Usage Quantity      
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_Elig_Dose2,Measure from table '03 Measure_byEvent',"CALCULATE([Cnt_NHI_DOB_PartiallyVacc]
+        ,FILTER(
+        ALL(f_AllVacc_PQ[ELIGIBLE_FOR_DOSE2_BIT]),
+        f_AllVacc_PQ[ELIGIBLE_FOR_DOSE2_BIT] IN{1})           //All NHI had dose 1 on FIRST_VACC_ACTIVITY_DATE
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_DOB_PartiallyVacc,Measure from table '03 Measure_byEvent',"CALCULATE(
+        DISTINCTCOUNT(f_AllVacc_PQ[NHI_DOB]),
+        FILTER(ALL(d_VaccStatus[VACCINATION_STATUS]),
+            d_VaccStatus[VACCINATION_STATUS] = ""Partially Vaccinated"")
+
+        )",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_Elig_Booster2,Measure from table '03 Measure_byEvent',"CALCULATE([Cnt_NHI_DOB_Booster1Vacc]
+        ,FILTER(
+        ALL(f_AllVacc_PQ[ELIGIBLE_FOR_BOOSTER2_BIT]),
+        f_AllVacc_PQ[ELIGIBLE_FOR_BOOSTER2_BIT] IN{1})           //All NHI had 1 booster on FIRST_BOOSTER_ACTIVITY_DATE
+)",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Cnt_NHI_DOB_Booster1Vacc,Measure from table '03 Measure_byEvent',"CALCULATE(
+        [Cnt_NHI_DOB],
+        FILTER(ALL(f_AllVacc_PQ[_NumberOfDoses_Flag]),
+            f_AllVacc_PQ[_NumberOfDoses_Flag] = ""3 doses"")
+
+        )",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Message,Measure from table '03 Measure_byEvent',"""""",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,93462f72-7938-45d2-bb76-5bac4bf986e4,Demo COVID Data from Snowflake to Power BI,Measure,Make Transparent,Measure from table '03 Measure_byEvent',"IF(
+         ISFILTERED(d_Age[_Age_Group]),
+         ""#FFFFFF00"", -- returns transparent if Check Filtered is True
+         ""White""
+      )",03 Measure_byEvent,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Rows,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNTROWS(f_Project)           //count number of rows of the table
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Projects,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNT(f_Project[Project Code])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Projects Distinct,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        DISTINCTCOUNT(f_Project[Project Code]) //count unique values
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Budget])
+
+        )
+
+, 0)                                     //add a zero to result, usually helpful if result is blank",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_Overspend,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Budget Overspend])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Year_Forecast,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Year Forecast])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Year_Actuals,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Year Actuals])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#RegCompliance,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Regulatory Compliance Counter])  
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#DaysAfterForecast,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Days after Fcst Date])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#ThresholdDays_AfterForecast,Measure from table '00 Measure',60,00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Budget_Overspend 100k+,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Budget Overspend 100k+])  
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,%Budget vs Actuals,Measure from table '00 Measure',([$Year_Actuals] - [$Budget])/[$Budget],00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Today Date,Measure from table '00 Measure',"DATE(2022, 12, 31)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,%Forecast vs Actuals,Measure from table '00 Measure',([$Year_Actuals] - [$Year_Forecast])/[$Year_Forecast],00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Ave_Daily_Actuals,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Ave Daily Actuals])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Ave_Daily_Budget,Measure from table '00 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Ave Daily Budget])
+
+        )
+
+, 0)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Text_Header01,Measure from table '00 Measure',"""Project Performance Dashboard as of "" & FORMAT([Today Date], ""Mmmm-YYYY"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Text_Footer01,Measure from table '00 Measure',"""For any inquiries, you may contact: Bryan Panopio at randybryanpanopio@gmail.com""",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Icon Budget vs Actual,Measure from table '00 Measure',"SWITCH(TRUE,
+[%Budget vs Actuals] > 0, UNICHAR(9650),    //Up arrow
+[%Budget vs Actuals] < 0, UNICHAR(128315),  //Down arrow
+BLANK()
+)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Icon Budget vs Actual Value,Measure from table '00 Measure',"SWITCH(TRUE,
+[%Budget vs Actuals] > 0, ""Up"",
+[%Budget vs Actuals] < 0, ""Down"",
+BLANK()
+)",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget Shorthen,Measure from table '00 Measure',"FORMAT([$Budget], ""$#,##0,,.00M"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Year_Actuals Shorthen,Measure from table '00 Measure',"FORMAT([$Year_Actuals], ""$#,##0,,.00M"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Text_Header02,Measure from table '00 Measure',"""Simulate | What-If Budget is Adjusted for In Progress Projects?""",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget Overspend Shorthen,Measure from table '00 Measure',"FORMAT([$Budget_Overspend], ""$#,##0,.00K"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Text_Header01_ExecutiveSummary,Measure from table '00 Measure',"""Executive Summary | Project Performance Dashboard as of "" & FORMAT([Today Date], ""Mmmm-YYYY"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Text_Header01_Executivedetails1,Measure from table '00 Measure',"""Executive Details | Project Performance Dashboard as of "" & FORMAT([Today Date], ""Mmmm-YYYY"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Text_Header01_Executivedetails2,Measure from table '00 Measure',"""Executive Details | Project Performance Dashboard as of "" & FORMAT([Today Date], ""Mmmm-YYYY"")",00 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Projects_InProgress_PastDue,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Flag_InProgress_PastDue])  
+
+        )
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Projects_InProgress_OnTrack,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Flag_InProgress_OnTrack])  
+
+        )
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Projects_Finished_PastDue,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Flag_Finished_PastDue])  
+
+        )
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Projects_Finished_OnTrack,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM(f_Project[Flag_Finished_OnTrack])  
+
+        )
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Exceeds_Projects_InProgress_PastDue,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Projects_InProgress_PastDue]
+         ,FILTER(ALL(f_Project[Flag_ActualsExceedsBudget])
+            ,f_Project[Flag_ActualsExceedsBudget] = ""Yes""
+         )
+        ) / [#Projects_InProgress_PastDue]
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Exceeds_Projects_OnTrack_PastDue,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Projects_InProgress_OnTrack]
+         ,FILTER(ALL(f_Project[Flag_ActualsExceedsBudget])
+            ,f_Project[Flag_ActualsExceedsBudget] = ""Yes""
+         )
+        ) / [#Projects_InProgress_OnTrack]
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Exceeds_Projects_Finished_PastDue,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Projects_Finished_PastDue]
+         ,FILTER(ALL(f_Project[Flag_ActualsExceedsBudget])
+            ,f_Project[Flag_ActualsExceedsBudget] = ""Yes""
+         )
+        ) / [#Projects_Finished_PastDue]
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Exceeds_Projects_Finished_OnTrack,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Projects_Finished_OnTrack]
+         ,FILTER(ALL(f_Project[Flag_ActualsExceedsBudget])
+            ,f_Project[Flag_ActualsExceedsBudget] = ""Yes""
+         )
+        ) / [#Projects_Finished_OnTrack]
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,#Exceeds_Projects_All,Measure from table '01 Measure By Case',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Projects]
+         ,FILTER(ALL(f_Project[Flag_ActualsExceedsBudget])
+            ,f_Project[Flag_ActualsExceedsBudget] = ""Yes""
+         )
+        ) / [#Projects]
+
+, 0)",01 Measure By Case,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_$Budget,Measure from table '02 Measure Prescriptive',"//Cummulative Count
+CALCULATE([$Budget]
+    ,FILTER(
+        ALLSELECTED(f_Project),
+        f_Project[Date_DBC] <= MAX(f_Project[Date_DBC])
+        
+    )
+)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_$Budget_AsToday,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [Cum_$Budget]
+        ,FILTER(ALL(f_Project[Date_DBC])
+            ,f_Project[Date_DBC] <= [Today Date]
+                )
+        )
+, 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_Adjust plus InProgress,Measure from table '02 Measure Prescriptive',"CALCULATE(
+        [$Budget_InProgress] * (1+ [Prm_AdjustBudget Value]/100)    //value increased based on paramter value
+         
+        
+        )",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_$Budget_Adjust,Measure from table '02 Measure Prescriptive',"//Cummulative Count
+CALCULATE([$Budget_Adjust]
+    ,FILTER(
+        ALLSELECTED(f_Project),
+        f_Project[Date_DBC] <= MAX(f_Project[Date_DBC])
+        //&& f_Project[Business Priority] = MAX(f_Project[Business Priority])
+    )
+)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_$Budget_Adjust_AsToday,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [Cum_$Budget_Adjust]
+        ,FILTER(ALL(f_Project[Date_DBC])
+            ,f_Project[Date_DBC] <= [Today Date]
+                )
+        )
+, 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_InProgress,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Budget]
+        ,FILTER(ALL(f_Project[Project Status Code])
+            ,f_Project[Project Status Code] = ""I"")
+            
+
+        )
+
+, 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_$Budget_InProgress,Measure from table '02 Measure Prescriptive',"//Cummulative Count for Status In Progress only
+CALCULATE([$Budget_InProgress]
+    ,FILTER(
+        ALLSELECTED(f_Project),
+        f_Project[Date_DBC] <= MAX(f_Project[Date_DBC])
+        
+    )
+)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_Finished,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Budget]
+        ,FILTER(ALL(f_Project[Project Status Code])
+            ,f_Project[Project Status Code] = ""F"")
+
+        )
+
+, 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,New_$Budget,Measure from table '02 Measure Prescriptive',[$Budget_Finished] + [$Budget_Adjust plus InProgress],02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_New_$Budget,Measure from table '02 Measure Prescriptive',"//Cummulative Count
+CALCULATE([New_$Budget]
+    ,FILTER(
+        ALLSELECTED(f_Project),
+        f_Project[Date_DBC] <= MAX(f_Project[Date_DBC])
+        
+    )
+)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,%Change in Budget,Measure from table '02 Measure Prescriptive',"IFERROR(
+    ([New_$Budget] - [$Budget])/[$Budget]
+    , 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_Adjust,Measure from table '02 Measure Prescriptive',"CALCULATE(
+        [$Budget_InProgress] * ([Prm_AdjustBudget Value]/100)    //value increased based on paramter value
+         
+        
+        )",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_New_$Budget_Future,Measure from table '02 Measure Prescriptive',"//Cummulative Count
+CALCULATE([Cum_New_$Budget] + [Cum_$Budget]
+    ,FILTER(ALL(f_Project[Date_DBC])
+            ,f_Project[Date_DBC] >= [Today Date]
+                )
+        
+    )",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_InProgress_No Blank,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Budget]
+        ,FILTER(ALL(f_Project[Project Status Code])
+            ,f_Project[Project Status Code] = ""I"")
+
+        )
+
+, 0) + 0",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_Adjust_No Blank,Measure from table '02 Measure Prescriptive',"CALCULATE(
+        [$Budget_InProgress] * ([Prm_AdjustBudget Value]/100)    //value increased based on paramter value
+         
+        
+        ) + 0",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_Finished_No Blank,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Budget]
+        ,FILTER(ALL(f_Project[Project Status Code])
+            ,f_Project[Project Status Code] = ""F"")
+
+        )
+
+, 0) + 0",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_InProgress_FromToday,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Budget_InProgress]
+        ,FILTER(ALL(f_Project[Date_DBC])
+            ,f_Project[Date_DBC] >= [Today Date])
+            
+
+        )
+
+, 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Cum_$Budget_InProgress_FromToday,Measure from table '02 Measure Prescriptive',"//Cummulative Count for Status In Progress only
+[$Budget_InProgress_OfToday] +
+CALCULATE([$Budget_InProgress_FromToday]
+    ,FILTER(
+        ALLSELECTED(f_Project),
+        f_Project[Date_DBC] < MAX(f_Project[Date_DBC])
+        
+    )
+)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,$Budget_InProgress_OfToday,Measure from table '02 Measure Prescriptive',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Budget_InProgress]
+        ,FILTER(ALL(d_Calendar[Date])
+            ,EOMONTH(d_Calendar[Date], 0) = EOMONTH([Today Date], 0)
+            )
+
+        )
+
+, 0)",02 Measure Prescriptive,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Prm_AdjustBudget Value,Measure from table 'Prm_AdjustBudget',SELECTEDVALUE('Prm_AdjustBudget'[Prm_AdjustBudget]),Prm_AdjustBudget,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,39a57ea7-4aaf-436a-8548-7195e13840fb,Project Performance Dashboard,Measure,Prm_Priority Value,Measure from table 'Prm_Priority',"SELECTEDVALUE('Prm_Priority'[Prm_Priority], 1)",Prm_Priority,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Listed,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNT('Items'[LISTING_ID]) 
+         )
+        
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Not Sold,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNTROWS('Items')
+         ,FILTER(ALL('Items'[Flag_Sold])
+            ,'Items'[Flag_Sold] = ""No""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,$Buy Now,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        SUM('Items'[BUY_NOW_PRICE]) 
+         )
+        
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,$Sold,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Buy Now]
+         ,FILTER(ALL('Items'[Flag_Sold])
+            ,'Items'[Flag_Sold] = ""Yes""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,$Not Sold,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [$Buy Now]
+         ,FILTER(ALL('Items'[Flag_Sold])
+            ,'Items'[Flag_Sold] = ""No""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items Sold,Measure from table '01 Measure',"IFERROR(
+[#Items Sold]/[#Items Listed]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items Not Sold,Measure from table '01 Measure',"IFERROR(
+[#Items Not Sold]/[#Items Listed]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Buy Sold,Measure from table '01 Measure',"IFERROR(
+[$Sold]/[$Buy Now]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Buy Not Sold,Measure from table '01 Measure',"IFERROR(
+[$Not Sold]/[$Buy Now]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor ByDay,Measure from table '01 Measure',"VAR MaxVal = MAXX(ALLSELECTED(d_Calendar[Day Id and Name]), [Total #Items Sold PerDay])
+VAR MinVal = MINX(ALLSELECTED(d_Calendar[Day Id and Name]), [Total #Items Sold PerDay])
+VAR CurrentTotal = [Total #Items Sold PerDay]
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentTotal = MaxVal, ""#00FF00"",     // Green (Highest)
+    CurrentTotal = MinVal, ""#FF0000"",     // Red (Lowest)
+    ""#F1F1F1""                             // Gray for others
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Total #Items Sold PerDay,Measure from table '01 Measure',"CALCULATE([#Items Sold], ALLEXCEPT(d_Calendar, d_Calendar[Day Id and Name]))",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Total #Items Not Sold PerMonth,Measure from table '01 Measure',"CALCULATE([#Items Not Sold], ALLEXCEPT(d_Calendar, d_Calendar[Month End Date].[Month]))",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor ByMonth,Measure from table '01 Measure',"VAR MaxVal = MAXX(ALLSELECTED(d_Calendar[Month End Date].[Month]), [Total #Items Not Sold PerMonth])
+VAR MinVal = MINX(ALLSELECTED(d_Calendar[Month End Date].[Month]), [Total #Items Not Sold PerMonth])
+VAR CurrentTotal = [Total #Items Not Sold PerMonth]
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentTotal = MaxVal, ""#00FF00"",     // Green (Highest)
+    CurrentTotal = MinVal, ""#FF0000"",     // Red (Lowest)
+    ""#F1F1F1""                             // Gray for others
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Sold New,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Sold]
+         ,FILTER(ALL('Items'[Flag_Is_New])
+            ,'Items'[Flag_Is_New] = ""Yes""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items Sold New,Measure from table '01 Measure',"IFERROR(
+[#Items Sold New]/[#Items Sold]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Sold Old,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Sold]
+         ,FILTER(ALL('Items'[Flag_Is_New])
+            ,'Items'[Flag_Is_New] = ""No""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items Sold Old,Measure from table '01 Measure',"IFERROR(
+[#Items Sold Old]/[#Items Sold]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Sold,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        COUNTROWS('Items')
+         ,FILTER(ALL('Items'[Flag_Sold])
+            ,'Items'[Flag_Sold] = ""Yes""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,xReportDate,Measure from table '01 Measure',"DATE(2025,7,1)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,SelectedReportDate,Measure from table '01 Measure',"VAR Selected = SELECTEDVALUE(prm_Sold_NotSold[SoldNotSold])
+VAR ReportDate1 = 
+    IF(
+        NOT ISBLANK(SELECTEDVALUE(Items[_ReportDate1])),
+        DATE(
+            YEAR(SELECTEDVALUE(Items[START_DATE])),
+            MONTH(SELECTEDVALUE(Items[START_DATE])),
+            DAY(SELECTEDVALUE(Items[START_DATE]))
+        )
+    )
+VAR ReportDate2 = SELECTEDVALUE(Items[_ReportDate2])
+RETURN 
+    SWITCH(
+        Selected,
+        ""Sold"", ReportDate1,
+        ""Not Sold"", ReportDate2,
+        BLANK()
+    )",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Text Items not sold,Measure from table '01 Measure',"""Items in "" & FORMAT([Max minus Min Date], ""#,###"") & "" days ("" & [MinStartDate] & "" to "" & [MaxStartDate] & "")""",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,MaxDate,Measure from table '01 Measure',MAX(Items[START_DATE]),01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,MinDate,Measure from table '01 Measure',MIN(Items[START_DATE]),01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Max minus Min Date,Measure from table '01 Measure',"DATEDIFF([MinDate], [MaxDate], DAY)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Total #Items Sold PerShip,Measure from table '01 Measure',"CALCULATE([%Items Sold], ALLEXCEPT(Items, Items[Flag_Is_FlatRateShipping_And_Pickup]))",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor_Ship_Sold,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(Items[Flag_Is_FlatRateShipping_And_Pickup]),
+				[#Items Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(Items[Flag_Is_FlatRateShipping_And_Pickup]),
+				[#Items Sold]
+		)
+
+VAR results =
+IF([#Items Sold] = max_value, ""#F2AF29"",		//yellow
+	IF([#Items Sold] = min_value, ""#F1F1F1"",	//gray
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor_PhotoCount_Sold,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(Items[_Group_PhotoCount]),
+				[#Items Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(Items[_Group_PhotoCount]),
+				[#Items Sold]
+		)
+
+VAR results =
+IF([#Items Sold] = max_value, ""#F2AF29"",		//yellow
+	IF([#Items Sold] = min_value, ""#F1F1F1"",	//gray
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Not Sold Old,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Not Sold]
+         ,FILTER(ALL('Items'[Flag_Is_New])
+            ,'Items'[Flag_Is_New] = ""No""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Not Sold New,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Not Sold]
+         ,FILTER(ALL('Items'[Flag_Is_New])
+            ,'Items'[Flag_Is_New] = ""Yes""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor_Ship_NotSold,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(Items[Flag_Is_FlatRateShipping_And_Pickup]),
+				[#Items Not Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(Items[Flag_Is_FlatRateShipping_And_Pickup]),
+				[#Items Not Sold]
+		)
+
+VAR results =
+IF([#Items Not Sold] = max_value, ""#F2AF29"",		//yellow
+	IF([#Items Not Sold] = min_value, ""#F1F1F1"",	//gray
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor_PhotoCount_NotSold,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(Items[_Group_PhotoCount]),
+				[#Items Not Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(Items[_Group_PhotoCount]),
+				[#Items Not Sold]
+		)
+
+VAR results =
+IF([#Items Not Sold] = max_value, ""#F2AF29"",		//yellow
+	IF([#Items Not Sold] = min_value, ""#F1F1F1"",	//gray
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Total #Items Sold DaysFromStart,Measure from table '01 Measure',"CALCULATE([#Items Sold], ALLEXCEPT(Items, Items[_Days Bet StartAndSold]))",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor ByDaysFromStart,Measure from table '01 Measure',"VAR MaxVal = MAXX(ALLSELECTED(Items[_Days Bet StartAndSold]), [Total #Items Sold DaysFromStart])
+VAR MinVal = MINX(ALLSELECTED(Items[_Days Bet StartAndSold]), [Total #Items Sold DaysFromStart])
+VAR CurrentTotal = [Total #Items Sold DaysFromStart]
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentTotal = MaxVal, ""#00FF00"",     // Green (Highest)
+    CurrentTotal = MinVal, ""#FF0000"",     // Red (Lowest)
+    ""#F1F1F1""                             // Gray for others
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Ave $Price per Item Not Sold,Measure from table '01 Measure',"IFERROR(
+[$Not Sold]/[#Items Not Sold]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Ave $Price per Item Sold,Measure from table '01 Measure',"IFERROR(
+[$Sold]/[#Items Sold]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor_Region_NotSold,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(d_Regions[Region Name]),
+				[#Items Not Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(d_Regions[Region Name]),
+				[#Items Not Sold]
+		)
+
+VAR results =
+IF([#Items Not Sold] = max_value, ""#F2AF29"",		//yellow
+	IF([#Items Not Sold] = min_value, ""#F1F1F1"",	//gray
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor_Region_Sold,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(d_Regions[Region Name]),
+				[#Items Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(d_Regions[Region Name]),
+				[#Items Sold]
+		)
+
+VAR results =
+IF([#Items Sold] = max_value, ""#F2AF29"",		//yellow
+	IF([#Items Sold] = min_value, ""#F1F1F1"",	//gray
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Ave $Price per Item Sold or Not Sold,Measure from table '01 Measure',"VAR Sold = [Ave $Price per Item Sold]
+VAR NotSold = [Ave $Price per Item Not Sold]
+VAR Flag = MAXX(ALLSELECTED(Items), [Flag_Sold])
+
+VAR Results =
+IF(Flag = ""Yes"", Sold, NotSold)
+
+RETURN Results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Diff $Sold and $Not Sold,Measure from table '01 Measure',[$Not Sold] - [$Sold],01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor ByDaysFromStart2,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(Items[_Days Bet StartAndSold]),
+				[#Items Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(Items[_Days Bet StartAndSold]),
+				[#Items Sold]
+		)
+
+VAR results =
+IF([#Items Sold] = max_value, ""#00FF00"",		//green
+	IF([#Items Sold] = min_value, ""#FF0000"",	//red
+		""#F1F1F1""				//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Ratio Sold-to-NotSold,Measure from table '01 Measure',"IFERROR(
+[#Items Sold]/[#Items Not Sold]
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,MaxStartDate,Measure from table '01 Measure',"FORMAT(MAX(Items[START_DATE]), ""Mmm-YYYY"")",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,MinStartDate,Measure from table '01 Measure',"FORMAT(MIN(Items[START_DATE]), ""Mmm-YYYY"")",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Rank ByMonth,Measure from table '01 Measure',"VAR MaxVal = MAXX(ALLSELECTED(d_Calendar[Month End Date].[Month]), [Total #Items Not Sold PerMonth])
+VAR MinVal = MINX(ALLSELECTED(d_Calendar[Month End Date].[Month]), [Total #Items Not Sold PerMonth])
+VAR CurrentTotal = [Total #Items Not Sold PerMonth]
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentTotal = MaxVal, 0,     // Green (Highest)
+    CurrentTotal = MinVal, 1,     // Red (Lowest)
+    3                            // Gray for others
+)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Sold Ship Only,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Sold]
+         ,FILTER(ALL('Items'[Flag_Is_FlatRateShipping_And_Pickup Sort])
+            ,'Items'[Flag_Is_FlatRateShipping_And_Pickup Sort] = ""B""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Sold Pickup Only,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Sold]
+         ,FILTER(ALL('Items'[Flag_Is_FlatRateShipping_And_Pickup Sort])
+            ,'Items'[Flag_Is_FlatRateShipping_And_Pickup Sort] = ""C""
+         )
+        )
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Days Bet StartAndSold,Measure from table '01 Measure',AVERAGE(Items[_Days Bet StartAndSold]),01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,BarColor ByDaysFromStart Day,Measure from table '01 Measure',"VAR max_value = MAXX(
+			ALLSELECTED(Items[_Days Bet StartAndSold]),
+				[#Items Sold]
+		)
+
+VAR min_value = MINX(
+			ALLSELECTED(Items[_Days Bet StartAndSold]),
+				[#Items Sold]
+		)
+
+VAR results =
+IF([#Items Sold] = max_value, MAX(Items[_Days Bet StartAndSold]),		//green
+	IF([#Items Sold] = min_value, MIN(Items[_Days Bet StartAndSold]),	//red
+		0			//gray
+))
+
+RETURN results",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items Sold 2-5 photos,Measure from table '01 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items Sold]
+         ,FILTER(ALL('Items'[_Group_PhotoCount])
+            ,'Items'[_Group_PhotoCount] = ""02 - 05""
+         )
+        ) 
+
+, 0)",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items Sold 2 - 5 photos,Measure from table '01 Measure',"IFERROR(
+([#Items Sold 2-5 photos]/[#Items Sold])
+
+, 0) + 0",01 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items SNS D No Ship No Pickup,Measure from table '02 Measure',"IFERROR(
+[#Items SNS D No Ship No Pickup]/[#Items SNS]
+
+, 0) + 0",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items SNS C Ship Only,Measure from table '02 Measure',"IFERROR(
+[#Items SNS C Ship Only]/[#Items SNS]
+
+, 0) + 0",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items SNS B Pickup Only,Measure from table '02 Measure',"IFERROR(
+[#Items SNS B Pickup Only]/[#Items SNS]
+
+, 0) + 0",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,%Items SNS A Ship and Pickup,Measure from table '02 Measure',"IFERROR(
+[#Items SNS A Ship and Pickup]/[#Items SNS]
+
+, 0) + 0",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items SNS D No Ship No Pickup,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items SNS]
+         ,FILTER(ALL('Items'[Flag_Is_FlatRateShipping_And_Pickup Sort])
+            ,'Items'[Flag_Is_FlatRateShipping_And_Pickup Sort] = ""D""
+         )
+        ) 
+
+, 0)",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items SNS C Ship Only,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items SNS]
+         ,FILTER(ALL('Items'[Flag_Is_FlatRateShipping_And_Pickup Sort])
+            ,'Items'[Flag_Is_FlatRateShipping_And_Pickup Sort] = ""B""
+         )
+        ) 
+
+, 0)",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items SNS B Pickup Only,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items SNS]
+         ,FILTER(ALL('Items'[Flag_Is_FlatRateShipping_And_Pickup Sort])
+            ,'Items'[Flag_Is_FlatRateShipping_And_Pickup Sort] = ""C""
+         )
+        ) 
+
+, 0)",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items SNS A Ship and Pickup,Measure from table '02 Measure',"IFERROR(                                    //if calculate is error, return a zero
+CALCULATE(
+        [#Items SNS]
+         ,FILTER(ALL('Items'[Flag_Is_FlatRateShipping_And_Pickup Sort])
+            ,'Items'[Flag_Is_FlatRateShipping_And_Pickup Sort] = ""A""
+         )
+        ) 
+
+, 0)",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,#Items SNS,Measure from table '02 Measure',"VAR SelectedPrm = SELECTEDVALUE(prm_Sold_NotSold[SoldNotSold], ""Sold"") 
+RETURN 
+SWITCH( 
+    SelectedPrm, 
+    ""Sold"", CALCULATE(COUNTROWS('Items'), FILTER(ALL('Items'[Flag_Sold]), 'Items'[Flag_Sold] = ""Yes"")), 
+    ""Not Sold"", CALCULATE(COUNTROWS('Items'), FILTER(ALL('Items'[Flag_Sold]), 'Items'[Flag_Sold] = ""No"")), 
+    CALCULATE(COUNTROWS('Items'), FILTER(ALL('Items'[Flag_Sold]), 'Items'[Flag_Sold] = ""Yes"")) -- Default if none selected 
+)",02 Measure,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Text Summary 01,Measure from table '03 Measure Text',"""In the last "" & 
+FORMAT([Max minus Min Date], ""#,###"") 
+& "" days ("" & 
+[MinStartDate] & "" to "" & [MaxStartDate] & "") "" & 
+""$"" & FORMAT([#Items Listed], ""#,##0"") 
+& "" items were listed, only "" & 
+FORMAT([%Items Sold] * 100, ""#,##0.0"") & ""%"" 
+& "" were sold, while "" &
+FORMAT([%Items Not Sold] * 100, ""#,##0.0"") & ""%"" 
+& "" remained unsold, highlighting a low conversion rate across the platform.""
+& "" The Sold-to-Not Sold Ratio of "" &
+FORMAT([Ratio Sold-to-NotSold] * 100, ""#,##0.00"") & ""%""
+& "" is well below 100%, confirming the severity of the issue and validating seller feedback.""",03 Measure Text,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Text Summary 02,Measure from table '03 Measure Text',"VAR itemSoldNew = [%Items Sold New]
+VAR itemSoldOld = [%Items Sold Old]
+
+VAR itemSoldNumber1 =
+IF(itemSoldNew > itemSoldOld, itemSoldNew, itemSoldOld)
+VAR itemSoldText1 =
+IF(itemSoldNew > itemSoldOld, ""New"", ""Old"")
+
+VAR itemSoldNumber2 =
+IF(itemSoldNew > itemSoldOld, itemSoldOld, itemSoldNew)
+VAR itemSoldText2=
+IF(itemSoldNew > itemSoldOld, ""Old"", ""New"")
+
+VAR differenceSoldRateNewOld = FORMAT((ABS(CALCULATE([%Items Sold New] - [%Items Sold Old]))) * 100, ""#,###.0"") & ""%""
+
+VAR text01 =
+""Overall, "" &
+itemSoldText1 & "" items significantly outperform "" &
+itemSoldText2 & "" items in both volume sold and sell-through rate difference by "" &
+differenceSoldRateNewOld & "". Flat rate shipping had better sales ratios than pickup only."" 
+
+VAR Results = text01
+
+
+RETURN Results",03 Measure Text,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,RateDiff,Measure from table '03 Measure Text',ABS(CALCULATE([%Items Sold New] - [%Items Sold Old])),03 Measure Text,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Text Summary 04a,Measure from table '03 Measure Text',"VAR Days = ALLSELECTED(Items[_Days Bet StartAndSold])
+
+VAR Results =
+""The majority of sold items were purchased within "" & 
+FORMAT(MAX(Items[_Days Bet StartAndSold]), ""#,###"") 
+& "" days of being listed.""
+
+RETURN Days",03 Measure Text,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Text Summary 04b,Measure from table '03 Measure Text',"FORMAT([%Items Sold 2 - 5 photos] * 100, ""#,###.0"") & ""%""
+& "" of all items and had noticeably better sales rates than those with 1 photo or 10+ photos.""",03 Measure Text,False
+effeb7fc-973a-4fca-99ed-56e20498b43f,00f2c043-4908-4a01-891e-a6f286dae0be,TradeMe Marketplace - Listings and Sales Report,Measure,Text Summary 03,Measure from table '03 Measure Text',"""Listings with "" & 
+FORMAT(MIN(Items[_Group_PhotoCount]), ""#,###"") 
+& "" photos per item made up """,03 Measure Text,False
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Order Count,Measure from table 'Key Measures',CALCULATE(Count(Superstore2025[Order_ID])),Key Measures,False
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Profit Sum,Measure from table 'Key Measures',CALCULATE(Sum(Superstore2025[Profit])),Key Measures,False
+c9149be5-1d1a-4653-a012-d373cae702d5,057e44ca-f9d8-4c0a-9277-98fcd7bea7a3,Superstore 2025,Measure,Sales Sum,Measure from table 'Key Measures',CALCULATE(Sum(Superstore2025[Sales])),Key Measures,False
