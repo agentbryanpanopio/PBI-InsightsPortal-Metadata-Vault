@@ -1,0 +1,4 @@
+Table,Measure,Business Logic,Description
+Sales,Total Revenue,sum(Sales[Amount]),Total gross sales before tax.
+Sales,Net Profit,[Total Revenue] - [Total Cost],Actual earnings after expenses.
+Time,YTD Sales,TOTALYTD([Total Revenue], 'Date'[Date]),Sales from Jan 1 to current date.
